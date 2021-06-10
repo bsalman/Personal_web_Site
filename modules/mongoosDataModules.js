@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const fs = require('fs')
-const connectionString="mongodb+srv://bsalman:Bsalman000583@cluster0.jufz4.mongodb.net/lebenslauf?retryWrites=true&w=majority";
+const connectionString="mongodb+srv://userName:Password@cluster0.jufz4.mongodb.net/collectionName?retryWrites=true&w=majority";
 
 // get Schema object
 const Schema = mongoose.Schema
