@@ -3,7 +3,7 @@ import React from 'react';
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
 
 import NavBar from './NavBar';
-import Header from './Header';
+import Home from './Home';
 import Footer from './Footer';
 import Education from './Education';
 import Skills from './Skills';
@@ -22,7 +22,7 @@ class Router extends React.Component{
                <div className="content">
                    <div className="content_cont">
                         <Switch>
-                            <Route path="/" exact component={Header}/>
+                            <Route path="/" exact component={Home}/>
                             <Route path="/Education" exact component={Education}/>
                             <Route path="/Skills" exact component={Skills}/>
                             <Route path="/Experience" exact component={Experience}/>

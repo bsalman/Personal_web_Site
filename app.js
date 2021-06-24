@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const emailSender=require('./modules/emailSend')
 const fileupload = require('express-fileupload');
+const dataModule =require('./modules/mySqlDataModules');
 
 const app = express();
 app.use(express.static(__dirname + '/public'));
@@ -35,6 +36,16 @@ app.post('/Contacts',(req,res)=>{
         });
     }
 })
+//////////////////////////////////////////////////////////
+//get myInfos from dat base
+app.post('/getAllMyInfos',(req,res)=>{
+    dataModule.getMyInfo().then((myInfos)=>{
+       
+        res.json(myInfos)
+    }).catch((error)=>{
+        res.json(2)
+    })
+}) 
 //////////////////////////////////////////////////
 app.use('/', (req, res) => {
     const html = fs.readFileSync(__dirname + '/index.html', 'utf-8')
