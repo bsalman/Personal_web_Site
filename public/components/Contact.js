@@ -16,23 +16,14 @@ class Contact extends React.Component{
   }
   
   onSendBtnClick=(e)=>{
-    if(this.state.name.trim()===''||this.state.email.trim()===''){
-      // const errorElement=(
-        //validator.isEmail(this.state.email)
-      //   <ul>
-      //     {this.state.name.trim() === ''? <li>Name should not be empty</li>: null}
-      //     {!validator.isEmail(this.state.email.trim())? <li>you have to enter a valid email</li>: null}
-      //     {this.state.email === ''? <li>email should not be empty</li>: null}
-      //   </ul>
-      // )
-      // this.setState({
-      //   errorContent:errorElement,showErrorModal:true
-      // })
+    if(this.state.name.trim()===''||this.state.email.trim()===''||!validator.isEmail(this.state.email.trim())){
      alert("your data is not complete")
     }else{
       sendEmail(this.state.name,this.state.email,this.state.text).then(BackData=>{
       console.log('backData',BackData);
-      if(BackData){alert("sending success")}
+      if(BackData===2){alert("sending success")}else{
+        alert("can not send the Email")
+      }
         
       }).catch(error=>{
         console.log(error);
