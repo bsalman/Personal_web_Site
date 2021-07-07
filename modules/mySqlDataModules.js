@@ -1,4 +1,4 @@
-const passwordHah = require('password-hash');
+
 const mySql = require('mysql');
 const fs = require('fs')
 // creating connection function 
@@ -23,7 +23,7 @@ function connect() {
                 host: 'localhost',
                 port: 3306,
                 user: 'root',
-                password: '0969000583',
+                password: '',
                 database: 'cv'
             })
             con.connect(error => {

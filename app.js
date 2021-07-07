@@ -1,8 +1,10 @@
 const express = require('express');
 const fs = require('fs');
-const emailSender=require('./modules/emailSend')
 const fileupload = require('express-fileupload');
+
+const emailSender=require('./modules/emailSend');
 const dataModule =require('./modules/mySqlDataModules');
+
 
 const app = express();
 app.use(express.static(__dirname + '/public'));
@@ -15,10 +17,10 @@ app.use(fileupload({
         fileSize: 50 * 1024 * 1024
     }
 }));
-app.use(express.urlencoded({extended: false}));
+
 const port = process.env.PORT || 4000;
 /////////////////////////////////////////////
-app.post('/Contacts',(req,res)=>{
+app.post('/Contact',(req,res)=>{
     console.log("body",req.body);
     const name = req.body.name
     const email = req.body.email
@@ -26,19 +28,18 @@ app.post('/Contacts',(req,res)=>{
     if(name != "" && name.length < 100 ){
         emailSender.sendEmail(name, email,message,(ok) => {
             if(ok){
-                console.log(ok);
-                //res.sendStatus(200);
-                res.render('Contacts', {sent: "E-Mail successfully sended"})
+                
+                res.json(2)
+              
             } else{
                 //res.sendStatus(500);
-                res.render('Contacts', {sent: "Email not sended"})
+                res.json(3)
             }
         });
     }
 })
-//////////////////////////////////////////////////////////
 //get myInfos from dat base
-app.post('/getAllMyInfos',(req,res)=>{
+ app.post('/getAllMyInfos',(req,res)=>{
     dataModule.getMyInfo().then((myInfos)=>{
        
         res.json(myInfos)
