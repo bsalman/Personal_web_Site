@@ -31,14 +31,13 @@ class NavBar extends React.Component {
             <i className="fa fa-home"></i>
             <p>HOME</p>
           </Link>
-          {/* <Link to="/about" className={currentLocation ==='/about'?"active":""}>
-            <i className="fa fa-user "></i>
-            <p>ABOUT</p>
-          </Link> */}
-         
           <Link to="/Skills" className={currentLocation ==='/Skills'?"active":""}>
             <i className="fas fa-laptop-code"></i>
             <p>Skills</p>
+          </Link>
+          <Link to="/Education" className={currentLocation ==='/Education'?"active":""}>
+          <i class="fas fa-graduation-cap"></i>
+            <p>Education</p>
           </Link>
           <Link to="/Experience" className={currentLocation ==='/Experience'?"active":""}>
             <i className="fa fa-eye "></i>
@@ -53,34 +52,34 @@ class NavBar extends React.Component {
 
         </div>
         <div  className="navBar_small">
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-            <DropdownToggle caret>
-              <i class="fas fa-bars"></i>
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} >
+            <DropdownToggle caret style={{backgroundColor:"rgb(37, 36, 36)"}}>
+              <i className="fas fa-bars"></i>
             </DropdownToggle>
-            <DropdownMenu color="black" >
+            <DropdownMenu style={{backgroundColor:"rgb(37, 36, 36)"}} >
               <DropdownItem >
-                <Link  to ="/">
+                <Link  to ="/" style ={{color:"white"}}>
                  <p>Über mich</p> 
                 </Link>
               </DropdownItem>
               <DropdownItem divider/>
               <DropdownItem>
-                  <Link to="/Education"  >
+                  <Link to="/Education" style ={{color:"white"}} >
                     <p>Education</p>
                   </Link></DropdownItem>
               <DropdownItem divider/>
               <DropdownItem>
-                  <Link to="/Skills"  >
+                  <Link to="/Skills" style ={{color:"white"}} >
                     <p>Kompetenzen</p>
                   </Link></DropdownItem>
               <DropdownItem divider/>
               <DropdownItem>
-                  <Link to="/Experience"  >
+                  <Link to="/Experience" style ={{color:"white"}} >
                     <p>Erfahrung</p>
                   </Link></DropdownItem>
               <DropdownItem divider/>
               <DropdownItem>
-                  <Link to="/Contact"  >
+                  <Link to="/Contact" style ={{color:"white"}} >
                     <p>Kontakt</p>
                   </Link></DropdownItem>
             </DropdownMenu>

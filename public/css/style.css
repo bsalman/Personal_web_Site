@@ -119,6 +119,22 @@
 
 .the_Name {
     font-size: 100px;
+    animation-name: tracking-in-expand;
+    animation-duration: 1s;
+    animation-delay: 0s;
+}
+
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .header {
@@ -132,6 +148,15 @@
     justify-content: start;
 
 }
+.header>h3{
+    animation-name: text-focus-in;
+    animation-duration: 2s;
+    animation-delay: 0s;
+}
+.header>:last-child{
+    animation-name: text-focus-in;
+    animation-duration: 2.5s;
+    animation-delay: 0s;}
 .myImage{
     display: none;
 }
@@ -174,6 +199,9 @@
     font-family: 'Open Sans Condensed', sans-serif;
     /* border: rgb(0, 255, 42) solid 1px; */
     width: 80%;
+    animation-name: scale-up-center;
+    animation-duration: 1.5s;
+    animation-delay: 0s;
 }
 
 hr {
@@ -209,8 +237,22 @@ hr {
     width: 20rem;
     height: 300px;
     background-color: rgba(245, 241, 241, 0.658);
-}
+    animation-name: scale-up-center;
+    animation-duration: 1s;
+    animation-delay: 0s;
 
+}
+@keyframes scale-up-center {
+    0% {
+      transform: scale(0.5);
+              transform: scale(0.5);
+    }
+    100% {
+      transform: scale(1);
+              transform: scale(1);
+    }
+  }
+  
 .card:hover {
     background-color: white;
 }
@@ -252,8 +294,39 @@ hr {
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    
 }
 
+.d1{
+    animation-name: text-focus-in;
+    animation-duration: 1s;
+    
+    animation-delay: 0s;
+}
+.d2{
+    animation-name: text-focus-in;
+    animation-duration: 1s;
+    
+    animation-delay: 0s;
+}
+.d3{
+    animation-name: text-focus-in;
+    animation-duration: 1s;
+    
+    animation-delay: 0s;
+}
+@keyframes text-focus-in {
+    0% {
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+  }
 .expCards>div {
     flex: 1
 }

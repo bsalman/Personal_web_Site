@@ -9,7 +9,7 @@ import Education from './Education';
 import Skills from './Skills';
 import Experience from './Experience'
 import Contact from './Contact'
-
+import Page404 from './Page404'
 
 
 
@@ -27,6 +27,7 @@ class Router extends React.Component{
                             <Route path="/Skills" exact component={Skills}/>
                             <Route path="/Experience" exact component={Experience}/>
                             <Route path="/Contact" exact component={Contact}/>
+                            <Route path="/" component={Page404} />
                             {/* <Route path="/xing" component={Redirect} loc="https://www.xing.com/profile/Bashar_Salman/cv"/> */}
                         </Switch>
                     </div>
