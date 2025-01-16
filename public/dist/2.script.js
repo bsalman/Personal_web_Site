@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcv=self.webpackChunkcv||[]).push([[2],{3002:(e,n,l)=>{l.r(n),l.d(n,{default:()=>r});var t=l(6540);function r(){return t.createElement("div",null,t.createElement("h3",null,"page not found"),t.createElement("h1",null,"Error:404"))}}}]);

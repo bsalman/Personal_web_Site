@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcv=self.webpackChunkcv||[]).push([[8],{9008:(e,l,u)=>{u.r(l),u.d(l,{default:()=>n});var c=u(6540);function n(){return c.createElement("div",null,"Hallo skills")}}}]);

@@ -1,14 +1,13 @@
-import React from 'react'
-import ReactDom from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Router from "./components/Router";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./scss/style.scss";
 
-import Router from './components/Router'
-
-class App extends React.Component {
-        render() {
-            return ( <Router>
-                        
-                    </Router>)
-            }
-        }
-
-        ReactDom.render( <App/> , document.querySelector('#container'))
+const el = document.getElementById("root");
+if (el) {
+  const root = ReactDOM.createRoot(el);
+  root.render(<Router />);
+} else {
+  console.error("Couldn't find the root element");
+}

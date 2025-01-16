@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcv=self.webpackChunkcv||[]).push([[796],{796:(e,t,c)=>{c.r(t),c.d(t,{default:()=>n});var l=c(6540);function n(){return l.createElement("div",null,"Hallo Contact")}}}]);

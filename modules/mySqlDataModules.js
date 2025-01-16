@@ -1,71 +1,95 @@
+const mySql = require("mysql2");
+// using dotenv to avoid  write the database as hardcode in side the project //Keeps sensitive information out of your codebase.
+const dotenv = require("dotenv");
+dotenv.config();
 
-const mySql = require('mysql');
-const fs = require('fs')
-// creating connection function 
-let con = null;
+// // creating connection function
+let db = null;
 function connect() {
-    return new Promise((resolve, reject) => {
-        if (con) {
-            if (con.state === 'disconnected') {
-                con.connect(error => {
-                    if (error) {
-                        reject(error)
-                    } else {
-                        resolve()
-                    }
-                })
-            } else {
-                resolve()
-            }
+  return new Promise((resolve, reject) => {
+    if (db) {
+      console.log(db);
+      if (db.state === "disconnected") {
+        db.connect((error) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve();
+          }
+        });
+      } else {
+        resolve();
+      }
+    } else {
+      db = mySql.createConnection({
+        multipleStatements: true,
+        host: process.env.MYSQL_HOST,
+        port: 3306,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DATABASE
+      });
+      db.connect((error) => {
+        if (error) {
+          reject(error);
         } else {
-            con = mySql.createConnection({
-                multipleStatements: true,
-                host: 'localhost',
-                port: 3306,
-                user: 'root',
-                password: '',
-                database: 'cv'
-            })
-            con.connect(error => {
-                if (error) {
-                    reject(error)
-                } else {
-                    resolve()
-                }
-            })
+          resolve();
         }
-    })
+      });
+    }
+  });
 }
-//creat function to use multi queryString
+// //create function to use multi queryString
 function runQuery(queryString) {
-    return new Promise((resolve, reject) => {
-        connect().then(() => {
-            con.query(queryString, (error, result, fields) => {
-                if (error) {
-                    reject(error)
-                } else {
-                    resolve(result)
-                }
-            })
-        }).catch(error => {
-            reject(error)
-        })
-    })
+  return new Promise((resolve, reject) => {
+    connect()
+      .then(() => {
+        db.query(queryString, (error, result, fields) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 }
 
 // creating function to get the info from data base just for home page and the skills page
-function getMyInfo(){
-    return new Promise((resolve,reject)=>{
-        runQuery(`SELECT * FROM myinfo WHERE id LIKE'${1}'` ).then((result)=>{
-         
-            resolve(result)
-        }).catch((error)=>{
-            console.log(error);
-            reject(error)
-        })
-    })
+function getInfo(personId) {
+  return new Promise((resolve, reject) => {
+    runQuery(`SELECT * FROM personalinfo WHERE id ='${personId}'`)
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
 }
 
-module.exports={
-    getMyInfo
-}
+const getMySkills = async (personId) => {
+  try {
+    const skills = await runQuery(
+      `SELECT skill,skillLevel,main_direction,firstname,lastName  FROM skills AS s 
+        INNER JOIN personalskill AS ps 
+        ON s.id = ps.skillId 
+        INNER JOIN personalinfo AS PI 
+        ON PI.id = ps.prsonId 
+        WHERE PI.id = '${personId}'
+        ORDER BY s.id ASC`
+    );
+    return skills;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  getInfo,
+  getMySkills
+};
