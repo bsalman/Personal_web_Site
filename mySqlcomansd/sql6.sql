@@ -1,0 +1,1 @@
+SELECT COUNT(project_id) AS count_projects FROM  personal_projects WHERE person_id =1

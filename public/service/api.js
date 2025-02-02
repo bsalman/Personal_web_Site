@@ -27,47 +27,115 @@
 //         })
 //     })
 // }
-// //creat fetch function to git all my infos for home page //
-// export const allMyInfosPost = () => {
-//   return new Promise((resolve, reject) => {
-//     fetch("/getAllMyInfos", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" }
-//     })
-//       .then((response) => {
-//         if (response.status === 200) {
-//           response
-//             .json()
-//             .then((data) => {
-//               console.log(data);
-
-//               resolve(data);
-//             })
-//             .catch((error) => {
-//               reject(error);
-//             });
-//         } else {
-//           reject(
-//             new Error(
-//               "can not get the data, response number is: " + response.status
-//             )
-//           );
-//         }
-//       })
-//       .catch((error) => {
-//         reject(error);
-//       });
-//   });
-// };
+// //create fetch function to git all my infos for home page //
 export const allMyInfosPost = async () => {
   try {
-    const response = await fetch("/getAllMyInfos", {
+    const response = await fetch("/sendInfo", {
       method: "POST",
       headers: { "Content-Type": "application/json" }
     });
-    if (response.status === 200) {
+    if (response.ok) {
       const data = await response.json();
-      console.log(data);
+      return data;
+    } else {
+      throw new Error(
+        `Cannot get the data, response number is: ${response.status}`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const allMySkillsPost = async () => {
+  try {
+    const response = await fetch("/getSkills", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.ok) {
+      const data = await response.json();
+
+      return data;
+    } else {
+      throw new Error(
+        `Cannot get the data, response number is: ${response.status}`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const allMyProjectsPost = async () => {
+  try {
+    const response = await fetch("/getProjects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(
+        `Cannot get the data, response number is: ${response.status}`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const allMyEducationPost = async () => {
+  try {
+    const response = await fetch("/getEducationPost", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(
+        `Cannot get the data, response number is: ${response.status}`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+export const allMyExperiencePost = async () => {
+  try {
+    const response = await fetch("/getExperiencePost", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(
+        `Cannot get the data, response number is: ${response.status}`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const footerInfoPost = async () => {
+  try {
+    const response = await fetch("/getFooterInfo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.ok) {
+      const data = await response.json();
       return data;
     } else {
       throw new Error(

@@ -25,33 +25,77 @@ app.use(
 
 const port = process.env.PORT || 5000;
 /////////////////////////////////////////////
-// app.post("/Contact", (req, res) => {
-//   console.log("body", req.body);
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const message = req.body.text;
-//   if (name != "" && name.length < 100) {
-//     emailSender.sendEmail(name, email, message, (ok) => {
-//       if (ok) {
-//         res.json(2);
-//       } else {
-//         //res.sendStatus(500);
-//         res.json(3);
-//       }
-//     });
-//   }
-// });
-//get myInfos from dat base
-
 const personId = 1;
 
-app.post("/getAllMyInfos", async (req, res) => {
-  try {
-    const personInfo = await getMySkills.getInfo(personId);
-    res.json(personInfo);
-  } catch (error) {
-    res.json("data request problem");
-  }
+app.post("/sendInfo", (req, res) => {
+  dataModule
+    .getInfo(personId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(2);
+    });
+});
+app.post("/getFooterInfo", (req, res) => {
+  dataModule
+    .getFooterInfo(personId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(2);
+    });
+});
+
+app.post("/getSkills", (req, res) => {
+  dataModule
+    .getMySkills(personId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(2);
+    });
+});
+// send post  request to frontend uel /getProjects
+app.post("/getProjects", (req, res) => {
+  dataModule
+    .getProjects(personId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(2);
+    });
+});
+//
+app.post("/getEducationPost", (req, res) => {
+  dataModule
+    .getEducation(personId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(2);
+    });
+});
+//////////////////////////////////////////////////
+app.post("/getExperiencePost", (req, res) => {
+  dataModule
+    .getExperience(personId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json(2);
+    });
 });
 //////////////////////////////////////////////////
 app.use("/", (req, res) => {

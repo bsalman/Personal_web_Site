@@ -17,19 +17,19 @@ function Router() {
       <div className="nav-container   navbar navbar-expand-lg">
         <NavBar />
       </div>
-      <div className="routs-container  content">
+      <main className="routs-container ">
         <div className="content_cont">
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route index element={<Home />} />
-            <Route path="/skills" element={<Skills />}></Route>
-            <Route path="/contact" element={<Contact />}></Route>
             <Route path="/education" element={<Education />}></Route>
             <Route path="/experience" element={<Experience />}></Route>
+            <Route path="/skills" element={<Skills />}></Route>
+            <Route path="/contact" element={<Contact />}></Route>
             <Route path="*" element={<PageNotFound />}></Route>
           </Routes>
         </div>
-      </div>
+      </main>
       <div className="footer-container">
         <Footer />
       </div>

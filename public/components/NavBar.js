@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Collapse,
@@ -11,88 +11,139 @@ import {
 
 export default function NavBar() {
   const location = useLocation();
-  const { pathname, search } = location;
+  const { pathname } = location;
+
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = React.createRef();
+  const isNavBottom = (element) => {
+    return element.offsetTop;
+  };
   const toggle = () => setIsOpen(!isOpen);
+  const handelClose = () => setIsOpen(false);
+  const handelScroll = (e) => {
+    const wrappedElement = navRef.current;
+    if (window.scrollY > isNavBottom(wrappedElement)) {
+      wrappedElement.classList.add("sticky");
+    } else {
+      wrappedElement.classList.remove("sticky");
+    }
+  };
+
+  useEffect(() => {
+    // Adding scroll event listener to window
+    window.addEventListener("scroll", handelScroll);
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener("scroll", handelScroll);
+    };
+  }, []);
+
   return (
     <>
-      <div className="navBar">
-        <div>
-          <img src="/images/bs.jpg" alt="Bashar" />
+      <div className="container " id="todo" ref={navRef}>
+        <Link to="/" class="navbar-brand  mx-lg-0">
+          BS
+        </Link>
+        <div className="navBar_small">
+          <React.StrictMode>
+            <Button onClick={toggle} className="btn-toggler">
+              <span
+                className={`icon icon-${
+                  isOpen === !false ? "x" : "list"
+                } no-text`}></span>
+            </Button>
+            <Collapse isOpen={isOpen} className="collapse-element">
+              <Card className="list-container">
+                <CardBody>
+                  <ListGroup>
+                    <ListGroupItem className=" g-item">
+                      <Link to="/" className={pathname === "/" ? "active" : ""}>
+                        HOME
+                      </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className=" g-item">
+                      <Link
+                        to="/Education"
+                        className={pathname === "/Education" ? "active" : ""}>
+                        EDUCATION
+                      </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className=" g-item">
+                      <Link
+                        to="/Experience"
+                        className={pathname === "/Experience" ? "active" : ""}>
+                        EXPERIENCE
+                      </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className=" g-item">
+                      <Link
+                        to="/Skills"
+                        className={pathname === "/Skills" ? "active" : ""}>
+                        SKILLS
+                      </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className=" g-item">
+                      <Link
+                        to="/Contact"
+                        className={pathname === "/Contact" ? "active" : ""}>
+                        CONTACT
+                      </Link>
+                    </ListGroupItem>
+                  </ListGroup>
+                </CardBody>
+              </Card>
+            </Collapse>
+          </React.StrictMode>
         </div>
 
-        <Link to="/" className={pathname === "/" ? "active" : ""}>
-          <i className="fa fa-home"></i>
-          <p>HOME</p>
-        </Link>
-        <Link to="/Skills" className={pathname === "/Skills" ? "active" : ""}>
-          <i className="fas fa-laptop-code"></i>
-          <p>Skills</p>
-        </Link>
-        <Link
-          to="/Education"
-          className={pathname === "/Education" ? "active" : ""}>
-          <i className="fas fa-graduation-cap"></i>
-          <p>EDUCATION</p>
-        </Link>
-        <Link
-          to="/Experience"
-          className={pathname === "/Experience" ? "active" : ""}>
-          <i className="fa fa-eye "></i>
-          <p>EXPERIENCE</p>
-        </Link>
-        <Link to="/Contact" className={pathname === "/Contact" ? "active" : ""}>
-          <i className="fa fa-envelope w3-xxlarge"></i>
-          <p>CONTACT</p>
-        </Link>
-      </div>
-      <div className="navBar_small bg-dark">
-        <React.StrictMode>
-          <Button onClick={toggle}>
-            <span className="navbar-toggler-icon"></span>
-          </Button>
-          <Collapse isOpen={isOpen} className="collapse-element">
-            <Card className="bg-dark list-container">
-              <CardBody>
-                <ListGroup>
-                  <ListGroupItem className="bg-dark g-item">
-                    <Link to="/" className={pathname === "/" ? "active" : ""}>
-                      <p>HOME</p>
-                    </Link>
-                  </ListGroupItem>
-                  <ListGroupItem className="bg-dark g-item">
-                    <Link
-                      to="/Skills"
-                      className={pathname === "/Skills" ? "active" : ""}>
-                      <p>SKILLS</p>
-                    </Link>
-                  </ListGroupItem>
-                  <ListGroupItem className="bg-dark g-item">
-                    <Link
-                      to="/Education"
-                      className={pathname === "/Education" ? "active" : ""}>
-                      <p>EDUCATION</p>
-                    </Link>
-                  </ListGroupItem>
-                  <ListGroupItem className="bg-dark g-item">
-                    <Link
-                      to="/Experience"
-                      className={pathname === "/Experience" ? "active" : ""}>
-                      <p>EXPERIENCE</p>
-                    </Link>
-                  </ListGroupItem>
-                  <ListGroupItem className="bg-dark g-item">
-                    <Link
-                      to="/Contact"
-                      className={pathname === "/Contact" ? "active" : ""}>
-                      <p>CONTACT</p>
-                    </Link>
-                  </ListGroupItem>
-                </ListGroup>
-              </CardBody>
-            </Card>
-          </Collapse>
-        </React.StrictMode>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ms-lg-5">
+            <li className="nav-item">
+              <Link
+                to="/"
+                className={`${
+                  pathname === "/" ? "active" : ""
+                } nav-link click-scroll`}>
+                HOME
+              </Link>
+            </li>
+            <Link
+              to="/Education"
+              className={`${
+                pathname === "/Education" ? "active" : ""
+              } nav-link click-scroll`}>
+              Education
+            </Link>
+            <li className="nav-item">
+              <Link
+                to="/Experience"
+                className={`${
+                  pathname === "/Experience" ? "active" : ""
+                } nav-link click-scroll`}>
+                EXPERIENCE
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/Skills"
+                className={`${
+                  pathname === "/Skills" ? "active" : ""
+                } nav-link click-scroll`}>
+                SKILLS
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/Contact"
+                className={`${
+                  pathname === "/Contact" ? "active" : ""
+                } nav-link click-scroll`}>
+                CONTACT
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );
