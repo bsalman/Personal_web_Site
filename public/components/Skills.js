@@ -1,97 +1,66 @@
-import React from 'react';
-import {Progress} from 'reactstrap';
-import {allMyInfosPost} from '../service/api'
-
+import React from "react";
+import { Progress } from "reactstrap";
+import SubHero from "./SubHero";
+import { allMySkillsPost } from "../service/api";
 
 class Skills extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-          myInfo:[]
-       }
-     
-    }
-    componentDidMount(){
-        allMyInfosPost().then(data1=>{
-          if(data1 != 2){
-           this.setState({...this.state,myInfo:data1[0]})}
-            console.log('skills',data1[0]);
-        })
-        
+  constructor(props) {
+    super(props);
+    this.state = {
+      skills: []
+    };
+  }
+  componentDidMount() {
+    allMySkillsPost().then((data) => {
+      if (data != 2) {
+        this.setState({ ...this.state, skills: data });
       }
+    });
+  }
+
   render() {
-    return (
-      <div className="aboutMe">
-        {/*  Main skills */}
-        <h2> Meine Fähigkeiten</h2>
-        <hr/>
-        
-        <h4>HTML5 <i className="fab fa-html5" style={{fontSize:"30px"}}></i></h4>
-        <div className="progress">
-            <div className="progress-bar bg-secondary" role="progressbar" style={{width:`${this.state.myInfo.html}%`}} aria-valuenow="100"
-              aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <br/>
-          <h4>CSS3 <i className="fab fa-css3-alt" style={{fontSize:"30px"}}></i></h4>
-        <div className="progress">
-            <div className="progress-bar bg-secondary" role="progressbar" style={{width:`${this.state.myInfo.css}%`}} aria-valuenow="100"
-              aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <br/>
-          <h4>Java Script <i class="fab fa-js" style={{fontSize:"30px"}}></i></h4>
-        <div class="progress">
-            <div class="progress-bar bg-secondary" role="progressbar" style={{width:`${this.state.myInfo.javaScript}%`}} aria-valuenow="100"
-              aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <br/>
-          <h4>React <i className="fab fa-react" style={{fontSize:"30px"}}></i></h4>
-          <div className="progress">
-            <div className="progress-bar bg-secondary" role="progressbar" style={{width:`${this.state.myInfo.react}%`}} aria-valuenow="100"
-              aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <br/>
-          <h4>Nodejs <i className="fab fa-node-js" style={{fontSize:"30px"}}></i></h4>
-          <div className="progress">
-            <div className="progress-bar bg-secondary" role="progressbar" style={{width:`${this.state.myInfo.nodejs}%`}} aria-valuenow="100"
-              aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <br/>
-          <h2 >Another Skills</h2>
-          <div className="morSkills">
-                <div className="w3-quarter w3-section">
-                    <span className="w3-xlarge">MySQL</span>
-                    <br/>
-                    <span><i className="fas fa-database"  style={{fontSize:"30px"}}></i></span>
-                </div>
-                <div className="w3-quarter w3-section">
-                    <span >Sass</span>
-                    <br/>
-                    <span><i className="fab fa-sass"  style={{fontSize:"30px"}}></i></span>
-                </div>
-                <div className="w3-quarter w3-section">
-                    <span className="w3-xlarge">bootstrap</span>
-                    <br/>
-                    <span><i className="fab fa-bootstrap"  style={{fontSize:"30px"}}></i></span>
-                </div>
-                <div className="w3-quarter w3-section">
-                    <span className="w3-xlarge">git</span>
-                    <br/>
-                    <span><i className="fab fa-git"  style={{fontSize:"30px"}}></i></span>
-                </div>
-                <div className="w3-quarter w3-section">
-                    <span className="w3-xlarge">Githup</span>
-                    <br/>
-                    <span><i className="fab fa-github-square "  style={{fontSize:"30px"}}></i></span>
-                </div>
-                <div className="w3-quarter w3-section">
-                    <span className="w3-xlarge">Redux</span>
-                    <br/>
-                    <span><img src="/images/icons8-redux-50.png" style={{width:"25px"}} alt=""/></span>
-                </div>
+    const renderingInSkills = this.state.skills.map((skill, index) => (
+      <div key={index} className="col-lg-3 col-12">
+        <div
+          className={`services-thumb ${
+            index % 2 === 0 ? "" : "services-thumb-up"
+          }`}>
+          <div className="d-flex flex-wrap align-items-center border-bottom mb-4 pb-3">
+            <h5 className="mb-0">{skill.skill}</h5>
+            <div className="services-price-wrap ms-auto">
+              <p className="services-price-text mb-0">{`${skill.skillLevel} %`}</p>
+              <div className="services-price-overlay"></div>
             </div>
-          
+          </div>
+          <p>{skill.main_direction}</p>
+          <div className="services-icon-wrap d-flex justify-content-center align-items-center">
+            <span
+              className={`services-icon icon icon-${skill.skill} no-text`}></span>
+          </div>
+        </div>
       </div>
-                            )}}
-export default Skills
-    
-       
+    ));
+
+    return (
+      <>
+        <SubHero />
+        <section className="services section-padding">
+          <div className="container">
+            <div className="row">
+              <div className="section-title-wrap d-flex justify-content-center align-items-center mb-5">
+                <img
+                  src="./images/Skills.jpg"
+                  class="avatar-image img-fluid"
+                  alt=""
+                />
+                <h2 className="text-white ms-4 mb-0">Skills</h2>
+              </div>
+              <div className="row pt-lg-5">{renderingInSkills}</div>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
+}
+export default Skills;

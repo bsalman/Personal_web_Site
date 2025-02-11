@@ -1,58 +1,99 @@
-import React from 'react';
-
-class Experience extends React .Component{
-    render(){
-        return(
-            // EXperience section //
-            <div className="experience_container">
-              <p className="h2">Berufserfahrung</p>
-              <hr/>
-    
-              <div className="expCards">
-                <div className="f_section">
-                  <div className="d1">
-                    <h2>Überbrückung Tätigkeit</h2>
-                    <h3>Toom Bau Markt 02/2019-07/2019 </h3>
-                    <p>Aufgaben</p>
-                    <ul>
-                      <li>Lager Arbeiten</li>
-                      <li>Feinkontrolle für neue Waren</li>
-                    </ul>
-                  </div>
-                  <div className="d2">
-                    <h2>Kundenberater</h2>
-                    <h3>Arab Bank-Syrien 12/2014-08/2015 </h3>
-                    <p>Aufgaben</p>
-                    <ul>
-                      <li>Bankkonten erstellen</li>
-                      <li>Kreditfolgearbeiten, u. a. Kundenbetreuung,
-                        Vertragsverwaltung und
-                        Zahlungsverkehrsabwicklung</li>
-                      <li>Einarbeitung und Ausbildung neuer
-                        Angestellter</li>
-                    </ul>
-                  </div>
-    
+import React, { useEffect, useState } from "react";
+import { allMyExperiencePost } from "../service/api";
+import SubHero from "./SubHero";
+import Projects from "./Projects";
+export default function Experience() {
+  const [experiences, setExperience] = useState([]);
+  useEffect(() => {
+    allMyExperiencePost().then((data) => {
+      if (data && data != 2) {
+        setExperience(data);
+      }
+    });
+  }, []);
+  const experiencesLength = experiences.length;
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  const renderingExperience = experiences
+    .toReversed()
+    .map((experience, index) => {
+      return (
+        <li key={index}>
+          <div className="single-timeline-box fix">
+            <div className="row justify-content-center">
+              <div
+                className={`col-lg-5 text-lg-end ${
+                  index !== experiencesLength - 1 ? "left-side" : ""
+                }`}>
+                <div className="experience-time  ">
+                  <h2>
+                    {month[new Date(experience.start_date).getUTCMonth()]}.
+                    {new Date(experience.start_date).getFullYear()} -
+                    {month[new Date(experience.end_date).getUTCMonth()]}.
+                    {new Date(experience.end_date).getFullYear()}
+                  </h2>
+                  <h3> {experience.company} </h3>
                 </div>
-                <div className="d3">
-                  <h2>Kundenberater</h2>
-                  <h3>Mobile Telekommunikation Network/MTN<br/> Syrien 11/2006-08/2014 </h3>
-                  <p>Aufgaben</p>
-                  <ul>
-                    <li>Kundenberatung und Verkäufer</li>
-                    <li>Planung und Organisation, Auftrags- und
-                      Rechnungsbearbeitung,<br/> Erteilung von
-                      Auskünften und Anlegung und Führung von
-                      Registern und Akte.
-                    </li>
-                    <li>Kundenbetreuung im Standard- und VIPSegment</li>
-                    <li>Einarbeitung und Ausbildung neuer
-                      Angestellter</li>
-                  </ul>
+              </div>
+              <div className="col-lg-5 text-lg-start right-side">
+                <div className="timeline">
+                  <div className="timeline-content">
+                    <h4 className="title">
+                      <span>
+                        <i className="icon icon-colored_circle no-text colored_circle"></i>
+                      </span>
+
+                      {experience.job_title}
+                    </h4>
+                    <h5>
+                      {experience.location},{experience.country}
+                    </h5>
+                    <p className="description">{experience.occupation}</p>
+                  </div>
                 </div>
               </div>
             </div>
-        )
-    }
+          </div>
+        </li>
+      );
+    });
+  return (
+    <>
+      <SubHero />
+      <section className="clients section-padding experience" id="experience">
+        <div className="container">
+          <div className="row ">
+            <div className="col-12 ms-auto">
+              <div className="section-title-wrap d-flex justify-content-center align-items-center mb-4">
+                <img
+                  src="./images/Experience.jpg"
+                  className="avatar-image img-fluid"
+                  alt="Projects image"
+                />
+                <h2 className="text-white ms-4 mb-0">Experience</h2>
+              </div>
+            </div>
+          </div>
+          <div className="experience-content row">
+            <div className="main-timeline">
+              <ul>{renderingExperience}</ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Projects />
+    </>
+  );
 }
-export default Experience
