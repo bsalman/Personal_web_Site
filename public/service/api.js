@@ -1,32 +1,30 @@
-// export const sendEmail =(name,email,text)=>{
-//     const sendData={
-//         name,
-//         email,
-//         text
-//     }
-//     return new Promise((resolve,reject)=>{
-//         fetch('/Contact',{
-//             method:'Post',
-//             headers:{
-//                 'Content-Type':'application/json'
-//             },
-//             body:JSON.stringify(sendData)
-//         }).then(response => {
-//             if (response.status === 200) {
-//                 response.json().then(data => {
-//                     resolve(data)
-//                 }).catch(error => {
-//                     reject(error)
-//                 })
-//             } else {
-//                 reject(new Error('can not send the data, response number is: ' + response.status))
-//             }
-//         }).catch(error=>{
-//             reject(error)
-//             console.log(error);
-//         })
-//     })
-// }
+export const sendEmail = async (name, email, title, text) => {
+  try {
+    const sendData = {
+      name,
+      email,
+      title,
+      text
+    };
+    const response = await fetch("/contact", {
+      method: "Post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(sendData)
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return 200;
+    } else {
+      throw new Error(
+        `Cannot get the data, response number is: ${response.status}`
+      );
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 // //create fetch function to git all my infos for home page //
 export const allMyInfosPost = async () => {
   try {

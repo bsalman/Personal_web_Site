@@ -21,7 +21,7 @@ export default function Projects() {
             <h3 className="projects-title">{project.project_name}</h3>
           </div>
 
-          <Link to={project.project_url} lassName="popup-image">
+          <Link to={project.project_url} target="_blank">
             <img
               src={`./images/${project.web_img_url}`}
               className="projects-image img-fluid"

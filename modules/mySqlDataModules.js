@@ -69,7 +69,6 @@ function getInfo(personId) {
         resolve(result);
       })
       .catch((error) => {
-        console.log(error);
         reject(error);
       });
   });

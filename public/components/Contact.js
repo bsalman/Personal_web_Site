@@ -1,244 +1,207 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+//prevents XSS attacks.
+import DOMPurify from "dompurify";
 import SubHero from "./SubHero";
+import { sendEmail } from "../service/api";
+
 export default function Contact() {
+  const [successMessage, setSuccessMessage] = useState("");
+  //react-hook-form
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors, isSubmitting }
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      title: "",
+      message: ""
+    }
+  });
+  //this function will be as an argument in the handleSubmit function witch wie imported from react-hook-form library
+  const onSubmitHandler = (data) => {
+    //Prevent XSS (Cross-Site Scripting) attacks by sanitizing user input.
+    const sanitizedData = {
+      name: DOMPurify.sanitize(data.name),
+      email: DOMPurify.sanitize(data.email),
+      title: DOMPurify.sanitize(data.title),
+      message: DOMPurify.sanitize(data.message)
+    };
+
+    sendEmail(
+      sanitizedData.name,
+      sanitizedData.email,
+      sanitizedData.title,
+      sanitizedData.message
+    )
+      .then((receivedData) => {
+        reset({ name: "", email: "", title: "", message: "" });
+
+        if (receivedData === 200) {
+          setSuccessMessage(
+            "Your message has been sent successfully. I will get back to you as soon as possible"
+          );
+        }
+      })
+      .catch((error) => {
+        setError("root", {
+          message: "Something went wrong, please try again later"
+        });
+      });
+  };
   return (
     <>
       <SubHero />
-      <section class="contact section-padding" id="section_5">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-md-8 col-12">
-              <div class="section-title-wrap d-flex justify-content-center align-items-center mb-5">
+      <section className="contact section-padding" id="section_5">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12 col-md-8 col-12">
+              <div className="section-title-wrap d-flex justify-content-center align-items-center mb-5">
                 <img
-                  src="images/aerial-view-man-using-computer-laptop-wooden-table.jpg"
-                  class="avatar-image img-fluid"
+                  src="./images/contact.jpg"
+                  className="avatar-image img-fluid"
                   alt=""
                 />
 
-                <h2 class="text-white ms-4 mb-0">Say Hi</h2>
+                <h2 className="text-white ms-4 mb-0">Contact Me</h2>
               </div>
             </div>
 
-            <div class="clearfix"></div>
+            <div className="clearfix"></div>
 
-            <div class="col-lg-3 col-md-6 col-12 pe-lg-0">
-              <div class="contact-info contact-info-border-start d-flex flex-column">
-                <strong class="site-footer-title d-block mb-3">Services</strong>
-
-                <ul class="footer-menu">
-                  <li class="footer-menu-item">
-                    <a href="#" class="footer-menu-link">
-                      Websites
-                    </a>
-                  </li>
-
-                  <li class="footer-menu-item">
-                    <a href="#" class="footer-menu-link">
-                      Branding
-                    </a>
-                  </li>
-
-                  <li class="footer-menu-item">
-                    <a href="#" class="footer-menu-link">
-                      Ecommerce
-                    </a>
-                  </li>
-
-                  <li class="footer-menu-item">
-                    <a href="#" class="footer-menu-link">
-                      SEO
-                    </a>
-                  </li>
-                </ul>
-
-                <strong class="site-footer-title d-block mt-4 mb-3">
-                  Stay connected
-                </strong>
-
-                <ul class="social-icon">
-                  <li class="social-icon-item">
-                    <a
-                      href="https://twitter.com/minthu"
-                      class="social-icon-link bi-twitter"></a>
-                  </li>
-
-                  <li class="social-icon-item">
-                    <a href="#" class="social-icon-link bi-instagram"></a>
-                  </li>
-
-                  <li class="social-icon-item">
-                    <a href="#" class="social-icon-link bi-pinterest"></a>
-                  </li>
-
-                  <li class="social-icon-item">
-                    <a
-                      href="https://www.youtube.com/templatemo"
-                      class="social-icon-link bi-youtube"></a>
-                  </li>
-                </ul>
-
-                <strong class="site-footer-title d-block mt-4 mb-3">
-                  Start a project
-                </strong>
-
-                <p class="mb-0">I’m available for freelance projects</p>
-              </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12 ps-lg-0">
-              <div class="contact-info d-flex flex-column">
-                <strong class="site-footer-title d-block mb-3">About</strong>
-
-                <p class="mb-2">
-                  Joshua is a professional web developer. Feel free to get in
-                  touch with me.
-                </p>
-
-                <strong class="site-footer-title d-block mt-4 mb-3">
-                  Email
-                </strong>
+            <div className="col-lg-3 col-md-6 col-12 pe-lg-0">
+              <div className="contact-info contact-info-border-start d-flex flex-column">
+                <strong>Get in touch</strong>
 
                 <p>
-                  <a href="mailto:hello@josh.design">hello@josh.design</a>
-                </p>
-
-                <strong class="site-footer-title d-block mt-4 mb-3">
-                  Call
-                </strong>
-
-                <p class="mb-0">
-                  <a href="tel: 120-240-9600">120-240-9600</a>
+                  I would love to hear from you! Whether you have a project in
+                  mind, need further information, or just want to say hello,
+                  please feel free to get in touch
                 </p>
               </div>
             </div>
 
-            <div class="col-lg-6 col-12 mt-5 mt-lg-0">
+            <div className="col-lg-3 col-md-6 col-12 ps-lg-0">
+              <div className="contact-info d-flex flex-column">
+                <strong>Or</strong>
+                <p>
+                  Alternatively, you can fill out the form below, and I will get
+                  back to you as soon as possible
+                </p>
+              </div>
+            </div>
+
+            <div className="col-lg-6 col-12 mt-5 mt-lg-0">
               <form
                 action="#"
                 method="get"
-                class="custom-form contact-form"
-                role="form">
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-floating">
+                className="custom-form contact-form"
+                role="form"
+                onSubmit={handleSubmit(onSubmitHandler)}>
+                <div className="row">
+                  <div className="col-lg-6 col-md-6 col-12">
+                    <div className="form-floating">
                       <input
-                        type="text"
+                        type="name"
                         name="name"
                         id="name"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Name"
-                        required=""
+                        required="true"
+                        {...register("name", { required: true })}
                       />
-
                       <label for="floatingInput">Name</label>
                     </div>
                   </div>
 
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="form-floating">
+                  <div className="col-lg-6 col-md-6 col-12">
+                    <div className="form-floating">
                       <input
                         type="email"
                         name="email"
                         id="email"
-                        pattern="[^ @]*@[^ @]*"
-                        class="form-control"
+                        className="form-control"
                         placeholder="Email address"
-                        required=""
+                        {...register("email", {
+                          required: "Email is required",
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                            message: "Invalid email address"
+                          }
+                        })}
                       />
 
                       <label for="floatingInput">Email address</label>
+                      {errors.email && (
+                        <span className="text-danger">
+                          {errors.email.message}
+                        </span>
+                      )}
                     </div>
                   </div>
-
-                  <div class="col-lg-3 col-md-6 col-6">
-                    <div class="form-check form-check-inline">
+                  <div className="col-lg-12 col-12">
+                    <div className="form-floating">
                       <input
-                        name="website"
-                        type="checkbox"
-                        class="form-check-input"
-                        id="inlineCheckbox1"
-                        value="1"
+                        type="text"
+                        name="title"
+                        id="title"
+                        className="form-control"
+                        placeholder="Title"
+                        required="true"
+                        {...register("title", {
+                          maxLength: {
+                            value: 1000,
+                            message: "Title is too long"
+                          }
+                        })}
                       />
 
-                      <label class="form-check-label" for="inlineCheckbox1">
-                        <i class="bi-globe form-check-icon"></i>
-                        <span class="form-check-label-text">Websites</span>
-                      </label>
+                      <label for="floatingInput">Title</label>
+                      {errors.text && (
+                        <span className="text-danger">
+                          {errors.text.message}
+                        </span>
+                      )}
                     </div>
                   </div>
-
-                  <div class="col-lg-3 col-md-6 col-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        name="branding"
-                        type="checkbox"
-                        class="form-check-input"
-                        id="inlineCheckbox2"
-                        value="1"
-                      />
-
-                      <label class="form-check-label" for="inlineCheckbox2">
-                        <i class="bi-lightbulb form-check-icon"></i>
-                        <span class="form-check-label-text">Branding</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-3 col-md-6 col-6">
-                    <div class="form-check form-check-inline">
-                      <input
-                        name="ecommerce"
-                        type="checkbox"
-                        class="form-check-input"
-                        id="inlineCheckbox3"
-                        value="1"
-                      />
-
-                      <label class="form-check-label" for="inlineCheckbox3">
-                        <i class="bi-phone form-check-icon"></i>
-                        <span class="form-check-label-text">Ecommerce</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-3 col-md-6 col-6">
-                    <div class="form-check form-check-inline me-0">
-                      <input
-                        name="seo"
-                        type="checkbox"
-                        class="form-check-input"
-                        id="inlineCheckbox4"
-                        value="1"
-                      />
-
-                      <label class="form-check-label" for="inlineCheckbox4">
-                        <i class="bi-google form-check-icon"></i>
-                        <span class="form-check-label-text">SEO</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-12 col-12">
-                    <div class="form-floating">
+                  <div className="col-lg-12 col-12">
+                    <div className="form-floating">
                       <textarea
-                        class="form-control"
+                        className="form-control"
                         id="message"
                         name="message"
-                        placeholder="Tell me about the project"></textarea>
+                        placeholder="Tell me about the project"
+                        {...register("message", { required: true })}></textarea>
 
                       <label for="floatingTextarea">
                         Tell me about the project
                       </label>
                     </div>
                   </div>
-
-                  <div class="col-lg-3 col-12 ms-auto">
-                    <button type="submit" class="form-control">
-                      Send
+                  <div className="col-lg-3 col-12 ms-auto">
+                    <button
+                      disabled={isSubmitting}
+                      type="submit"
+                      className="form-control">
+                      {isSubmitting ? "Sending..." : "Send"}
                     </button>
                   </div>
                 </div>
               </form>
+              {/* show error Message */}
+              {errors.root && (
+                <span className="text-danger">{errors.root.message}</span>
+              )}
+              {/* show success Message */}
+              {successMessage && (
+                <div className="alert alert-success mt-3" role="alert">
+                  {successMessage}
+                </div>
+              )}
             </div>
           </div>
         </div>

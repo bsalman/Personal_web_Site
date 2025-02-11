@@ -7,7 +7,6 @@ export default function Experience() {
   useEffect(() => {
     allMyExperiencePost().then((data) => {
       if (data && data != 2) {
-        console.log(data);
         setExperience(data);
       }
     });

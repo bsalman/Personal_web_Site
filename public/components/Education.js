@@ -46,7 +46,7 @@ export default function Education() {
               <img
                 src="./images/education.jpg"
                 class="avatar-image img-fluid"
-                alt=""
+                alt="education image"
               />
               <h2 className="text-white ms-4 mb-0">Education</h2>
             </div>
