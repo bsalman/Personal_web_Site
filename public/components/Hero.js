@@ -15,7 +15,7 @@ export default function Hero() {
                   alt="the developer Image"></img>
                 <h1 class="hero-title ms-3 mb-0">Hello friend!</h1>
               </div>
-              <h2 class="mb-4">I’m available for freelance work.</h2>
+              <h2 class="mb-4">I’m available for work.</h2>
               <p class="mb-4">
                 <a class="custom-btn btn custom-link" href="#section_2">
                   Let's begin

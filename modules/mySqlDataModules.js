@@ -1,7 +1,14 @@
 const mySql = require("mysql2");
 // using dotenv to avoid  write the database as hardcode in side the project //Keeps sensitive information out of your codebase.
 const dotenv = require("dotenv");
-dotenv.config();
+const fs = require("fs");
+
+// Load the correct environment file
+const envFile =
+  fs.existsSync(".env.docker") && process.env.DOCKER_ENV
+    ? ".env.docker"
+    : ".env";
+dotenv.config({ path: envFile });
 
 // // creating connection function
 let db = null;
@@ -23,7 +30,7 @@ function connect() {
       db = mySql.createConnection({
         multipleStatements: true,
         host: process.env.MYSQL_HOST,
-        port: 3306,
+        port: process.env.MYSQL_PORT || 3306,
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE

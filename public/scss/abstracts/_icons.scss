@@ -27,7 +27,8 @@ $icons: (
   list,
   x,
   at,
-  map-pin
+  map-pin,
+  globe
 );
 
 @each $icon in $icons {

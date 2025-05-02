@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import Router from "./components/Router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/style.scss";
-
+import "./i18n";
 const el = document.getElementById("root");
 if (el) {
   const root = ReactDOM.createRoot(el);

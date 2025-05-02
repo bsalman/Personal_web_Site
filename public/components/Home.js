@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { allMyInfosPost } from "../service/api";
+import { useTranslation } from "react-i18next";
 import Hero from "./Hero";
 export default function Home() {
+  const { t } = useTranslation();
   const [myInfo, setMyInfo] = useState([]);
   const [countSkills, setCountSkills] = useState(0);
   const [countProjects, setCountProjects] = useState(0);
@@ -37,7 +39,7 @@ export default function Home() {
                       alt=""
                     />
                     &nbsp;
-                    <h2 class="text-white me-4 mb-0">About me</h2>
+                    <h2 class="text-white me-4 mb-0">{t("About_me")}</h2>
                   </div>
                   <div class="image-container float-lg-start float-md-end me-5 ">
                     <img

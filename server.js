@@ -26,7 +26,7 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 ///////////////Handle Api post //////////////////////////////
 const personId = 1;
 

@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageList from "./LanguageList";
 import {
   Collapse,
   Button,
@@ -10,6 +12,7 @@ import {
 } from "reactstrap";
 
 export default function NavBar() {
+  const { t } = useTranslation();
   const location = useLocation();
   const { pathname } = location;
 
@@ -57,38 +60,41 @@ export default function NavBar() {
               <Card className="list-container">
                 <CardBody>
                   <ListGroup>
-                    <ListGroupItem className=" g-item">
+                    <ListGroupItem className=" g-item" onClick={handelClose}>
                       <Link to="/" className={pathname === "/" ? "active" : ""}>
-                        HOME
+                        {t("HOME")}
                       </Link>
                     </ListGroupItem>
-                    <ListGroupItem className=" g-item">
+                    <ListGroupItem className=" g-item" onClick={handelClose}>
                       <Link
                         to="/Education"
                         className={pathname === "/Education" ? "active" : ""}>
-                        EDUCATION
+                        {t("EDUCATION")}
                       </Link>
                     </ListGroupItem>
-                    <ListGroupItem className=" g-item">
+                    <ListGroupItem className=" g-item" onClick={handelClose}>
                       <Link
                         to="/Experience"
                         className={pathname === "/Experience" ? "active" : ""}>
-                        EXPERIENCE
+                        {t("EXPERIENCE")}
                       </Link>
                     </ListGroupItem>
-                    <ListGroupItem className=" g-item">
+                    <ListGroupItem className=" g-item" onClick={handelClose}>
                       <Link
                         to="/Skills"
                         className={pathname === "/Skills" ? "active" : ""}>
-                        SKILLS
+                        {t("SKILLS")}
                       </Link>
                     </ListGroupItem>
-                    <ListGroupItem className=" g-item">
+                    <ListGroupItem className=" g-item" onClick={handelClose}>
                       <Link
                         to="/Contact"
                         className={pathname === "/Contact" ? "active" : ""}>
-                        CONTACT
+                        {t("CONTACT")}
                       </Link>
+                    </ListGroupItem>
+                    <ListGroupItem className=" g-item">
+                      <LanguageList />
                     </ListGroupItem>
                   </ListGroup>
                 </CardBody>
@@ -105,7 +111,7 @@ export default function NavBar() {
                 className={`${
                   pathname === "/" ? "active" : ""
                 } nav-link click-scroll`}>
-                HOME
+                {t("HOME")}
               </Link>
             </li>
             <Link
@@ -113,7 +119,7 @@ export default function NavBar() {
               className={`${
                 pathname === "/Education" ? "active" : ""
               } nav-link click-scroll`}>
-              Education
+              {t("EDUCATION")}
             </Link>
             <li className="nav-item">
               <Link
@@ -121,7 +127,7 @@ export default function NavBar() {
                 className={`${
                   pathname === "/Experience" ? "active" : ""
                 } nav-link click-scroll`}>
-                EXPERIENCE
+                {t("EXPERIENCE")}
               </Link>
             </li>
             <li className="nav-item">
@@ -130,7 +136,7 @@ export default function NavBar() {
                 className={`${
                   pathname === "/Skills" ? "active" : ""
                 } nav-link click-scroll`}>
-                SKILLS
+                {t("SKILLS")}
               </Link>
             </li>
             <li className="nav-item">
@@ -139,9 +145,11 @@ export default function NavBar() {
                 className={`${
                   pathname === "/Contact" ? "active" : ""
                 } nav-link click-scroll`}>
-                CONTACT
+                {t("CONTACT")}
               </Link>
             </li>
+
+            <LanguageList />
           </ul>
         </div>
       </div>
