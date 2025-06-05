@@ -94,7 +94,7 @@ export default function NavBar() {
                       </Link>
                     </ListGroupItem>
                     <ListGroupItem className=" g-item">
-                      <LanguageList />
+                      {/* <LanguageList /> */}
                     </ListGroupItem>
                   </ListGroup>
                 </CardBody>
@@ -149,7 +149,7 @@ export default function NavBar() {
               </Link>
             </li>
 
-            <LanguageList />
+            {/* <LanguageList /> */}
           </ul>
         </div>
       </div>

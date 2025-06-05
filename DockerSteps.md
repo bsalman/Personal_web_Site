@@ -293,5 +293,11 @@ Be sure to match your dump file's database settings (e.g., character sets, colla
 ```bash
 docker network connect my_network nodejs_container
 docker network connect my_network mysql_container
+```
+
+- Restart containers
+
+```bash
+docker restart nodejs_container mysql_container
 
 ```
