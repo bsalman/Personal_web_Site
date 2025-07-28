@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { body, validationResult } = require("express-validator");
 const emailSender = require("./modules/emailSend");
-const dataModule = require("./modules/mySqlDataModules");
+const dataModule = require("./services/personal.service");
 
 const app = express();
 // Middleware

@@ -12,6 +12,7 @@ dotenv.config({ path: envFile });
 
 // // creating connection function
 let db = null;
+
 function connect() {
   return new Promise((resolve, reject) => {
     if (db) {
@@ -45,7 +46,7 @@ function connect() {
     }
   });
 }
-// //create function to use multi queryString
+// create function to use multi queryString
 function runQuery(queryString) {
   return new Promise((resolve, reject) => {
     connect()

@@ -7,12 +7,15 @@ export default function Footer() {
   useEffect(() => {
     footerInfoPost().then((data) => {
       if (data && data !== 2) {
+        console.log();
+
         setFooterInfo(data[0]);
       }
     });
   }, []);
   return (
     <footer className="site-footer">
+      {" "}
       <div className="container">
         <div className="row d-flex justify-content-around flex-md-row">
           <div className="col-md-6">
@@ -66,10 +69,10 @@ export default function Footer() {
                     </Link>
                   </li>
                   {/* <li>
-                    <Link to={`../${footerInfo.cv_file_url}`} target="_blank">
-                      <span className="icon icon-file-download no-text"></span>
-                    </Link>
-                  </li> */}
+              <Link to={`../${footerInfo.cv_file_url}`} target="_blank">
+                <span className="icon icon-file-download no-text"></span>
+              </Link>
+            </li> */}
                 </ul>
               </div>
             </div>
